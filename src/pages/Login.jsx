@@ -29,12 +29,12 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 px-4">
       <div className="absolute top-4 right-4">
-        <button
+        {/* <button
           onClick={toggleTheme}
           className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
         >
           {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-        </button>
+        </button> */}
       </div>
 
       <div className="max-w-md w-full space-y-8">

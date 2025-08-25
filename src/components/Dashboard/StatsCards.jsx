@@ -9,7 +9,8 @@ const StatsCards = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/stats");
+        // ✅ use deployed backend instead of localhost
+        const res = await fetch("https://arpit-s-dashboard-backend.onrender.com/api/stats");
         const data = await res.json();
         setStats(data);
       } catch (err) {
@@ -28,37 +29,36 @@ const StatsCards = () => {
     );
   }
 
-const cards = [
-  {
-    title: "Total Projects",
-    value: stats.totalProjects,
-    change: `${stats.totalProjectsChange >= 0 ? "+" : ""}${stats.totalProjectsChange} this month`,
-    icon: FolderOpen,
-    color: "bg-blue-500",
-  },
-  {
-    title: "Messages",
-    value: stats.messages,
-    change: `${stats.messagesChange >= 0 ? "+" : ""}${stats.messagesChange} this week`,
-    icon: MessageSquare,
-    color: "bg-green-500",
-  },
-  {
-    title: "Portfolio Views",
-    value: stats.portfolioViews,
-    change: `${stats.portfolioViewsChange >= 0 ? "+" : ""}${stats.portfolioViewsChange} this month`,
-    icon: Eye,
-    color: "bg-purple-500",
-  },
-  {
-    title: "Engagement Rate",
-    value: stats.engagementRate,
-    change: "Compared to last month", // could also calculate difference
-    icon: TrendingUp,
-    color: "bg-orange-500",
-  },
-];
-
+  const cards = [
+    {
+      title: "Total Projects",
+      value: stats.totalProjects,
+      change: `${stats.totalProjectsChange >= 0 ? "+" : ""}${stats.totalProjectsChange} this month`,
+      icon: FolderOpen,
+      color: "bg-blue-500",
+    },
+    {
+      title: "Messages",
+      value: stats.messages,
+      change: `${stats.messagesChange >= 0 ? "+" : ""}${stats.messagesChange} this week`,
+      icon: MessageSquare,
+      color: "bg-green-500",
+    },
+    {
+      title: "Portfolio Views",
+      value: stats.portfolioViews,
+      change: `${stats.portfolioViewsChange >= 0 ? "+" : ""}${stats.portfolioViewsChange} this month`,
+      icon: Eye,
+      color: "bg-purple-500",
+    },
+    {
+      title: "Engagement Rate",
+      value: stats.engagementRate,
+      change: "Compared to last month", // could also calculate difference
+      icon: TrendingUp,
+      color: "bg-orange-500",
+    },
+  ];
 
   return (
     <>

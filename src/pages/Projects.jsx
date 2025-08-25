@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Grid, List, Star } from "lucide-react";
 import ProjectCard from "../components/Projects/ProjectCard";
 import ProjectList from "../components/Projects/ProjectList";
-import '../index.css'
-import { useTheme } from '../contexts/ThemeContext';
+import "../index.css";
+import { useTheme } from "../contexts/ThemeContext";
+
+const API_BASE = "https://arpit-s-dashboard-backend.onrender.com/api"; // ✅ use deployed backend
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -14,7 +16,7 @@ const Projects = () => {
   // ✅ Fetch projects sorted: fav first
   const fetchProjects = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/projects");
+      const res = await fetch(`${API_BASE}/projects`);
       let data = await res.json();
 
       // sort so fav projects appear first
@@ -35,11 +37,11 @@ const Projects = () => {
   // ✅ Toggle fav and update backend
   const toggleFav = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/projects/${id}/fav`, {
+      const res = await fetch(`${API_BASE}/projects/${id}/fav`, {
         method: "PATCH",
       });
       const updated = await res.json();
-  
+
       setProjects((prev) =>
         prev
           .map((p) => (p._id === id ? updated : p))
@@ -62,18 +64,16 @@ const Projects = () => {
         <div className="flex gap-2">
           <button
             className={`p-2 rounded ${
-              viewMode === "card" ? "bg-gray-300" : "bg-gray-100",
-              isDark ? "bg-gray-700 text-gray-300" : "bg-gray-100 text-gray-700"
-            }`}
+              viewMode === "card" ? "bg-gray-300" : "bg-gray-100"
+            } ${isDark ? "bg-gray-700 text-gray-300" : "bg-gray-100 text-gray-700"}`}
             onClick={() => setViewMode("card")}
           >
             <Grid size={20} />
           </button>
           <button
             className={`p-2 rounded ${
-              viewMode === "list" ? "bg-gray-300" : "bg-gray-100",
-              isDark ? "bg-gray-700 text-gray-300" : "bg-gray-100 text-gray-700"
-            }`}
+              viewMode === "list" ? "bg-gray-300" : "bg-gray-100"
+            } ${isDark ? "bg-gray-700 text-gray-300" : "bg-gray-100 text-gray-700"}`}
             onClick={() => setViewMode("list")}
           >
             <List size={20} />

@@ -6,6 +6,8 @@ import MessageCard from '../components/Messages/MessageCard';
 import MessageDetail from '../components/Messages/MessageDetail';
 import { useTheme } from '../contexts/ThemeContext';
 
+const API_BASE = "https://arpit-s-dashboard-backend.onrender.com/api"; // ✅ Use deployed backend
+
 const Messages = () => {
   const { isDark } = useTheme();
   const [messages, setMessages] = useState([]);
@@ -17,7 +19,7 @@ const Messages = () => {
   // ✅ Fetch all messages
   const fetchMessages = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/messages/");
+      const res = await fetch(`${API_BASE}/messages`);
       const data = await res.json();
       setMessages(data);
     } catch (err) {
@@ -34,7 +36,7 @@ const Messages = () => {
   // ✅ Toggle read/unread
   const handleToggleRead = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/messages/${id}/toggle-read`, {
+      const res = await fetch(`${API_BASE}/messages/${id}/toggle-read`, {
         method: "PATCH",
       });
       const updated = await res.json();
@@ -49,7 +51,7 @@ const Messages = () => {
   // ✅ Toggle star/unstar
   const handleToggleStar = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/messages/${id}/toggle-star`, {
+      const res = await fetch(`${API_BASE}/messages/${id}/toggle-star`, {
         method: "PATCH",
       });
       const updated = await res.json();
@@ -64,7 +66,7 @@ const Messages = () => {
   // ✅ Delete message
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/messages/${id}`, {
+      await fetch(`${API_BASE}/messages/${id}`, {
         method: "DELETE",
       });
       setMessages((prev) => prev.filter((m) => m._id !== id));

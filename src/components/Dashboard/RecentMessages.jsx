@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Mail, Clock, Star } from "lucide-react";
 import { useTheme } from "../../contexts/ThemeContext";
+ 
+const API_BASE = "https://arpit-s-dashboard-backend.onrender.com/api"; // ✅ Use deployed backend
+
 
 const RecentMessages = () => {
   const { isDark } = useTheme();
@@ -10,7 +13,7 @@ const RecentMessages = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/messages");
+        const res = await fetch(`${API_BASE}/messages`);
         const data = await res.json();
         setMessages(data);
       } catch (err) {

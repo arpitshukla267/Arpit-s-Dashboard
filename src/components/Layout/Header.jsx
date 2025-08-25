@@ -4,6 +4,8 @@ import { useTheme } from "../../contexts/ThemeContext";
 import { LogOut, Sun, Moon, Bell, Plus, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+const API_BASE = "https://arpit-s-dashboard-backend.onrender.com/api"; // ✅ use deployed backend
+
 const Header = () => {
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
@@ -32,7 +34,7 @@ const Header = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/projects", {
+      const response = await fetch(`${API_BASE}/projects`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

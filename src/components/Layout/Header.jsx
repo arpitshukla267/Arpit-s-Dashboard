@@ -4,9 +4,9 @@ import { useTheme } from "../../contexts/ThemeContext";
 import { LogOut, Sun, Moon, Bell, Plus, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const API_BASE = "https://arpit-s-dashboard-backend.onrender.com/api"; // ✅ use deployed backend
+const API_BASE = "https://arpit-s-dashboard-backend.onrender.com/api";
 
-const Header = () => {
+const Header = ({ onProjectAdded }) => {
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
 
@@ -26,6 +26,7 @@ const Header = () => {
     { value: "completed", label: "✅ Completed" },
   ];
 
+  // ✅ Add project
   const handleAddProject = async (e) => {
     e.preventDefault();
     if (!projectName || !description) {
@@ -54,6 +55,9 @@ const Header = () => {
 
       console.log("✅ Project saved:", data.project);
 
+      // 🔥 Notify parent (Projects.jsx) to refetch
+      if (onProjectAdded) onProjectAdded();
+
       // Reset fields
       setIsModalOpen(false);
       setStatus("pending");
@@ -74,9 +78,7 @@ const Header = () => {
       {/* Header */}
       <header
         className={`shadow-sm border-b px-6 py-4 transition-colors duration-300 ${
-          isDark
-            ? "bg-gray-800 border-gray-700"
-            : "bg-white border-gray-200"
+          isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"
         }`}
       >
         <div className="flex items-center justify-between">
@@ -88,9 +90,7 @@ const Header = () => {
             >
               Welcome back, {user?.name}!
             </h2>
-            <p
-              className={`${isDark ? "text-gray-400" : "text-gray-600"}`}
-            >
+            <p className={isDark ? "text-gray-400" : "text-gray-600"}>
               Here's what's happening with your projects today.
             </p>
           </div>
@@ -192,7 +192,9 @@ const Header = () => {
                         : "bg-white text-gray-800 border-gray-300 hover:border-indigo-400"
                     }`}
                   >
-                    <span>{options.find((opt) => opt.value === status)?.label}</span>
+                    <span>
+                      {options.find((opt) => opt.value === status)?.label}
+                    </span>
                     <ChevronDown
                       className={`w-4 h-4 transition-transform duration-200 ${
                         open ? "rotate-180" : ""

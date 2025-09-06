@@ -5,6 +5,7 @@ import {
 import MessageCard from '../components/Messages/MessageCard';
 import MessageDetail from '../components/Messages/MessageDetail';
 import { useTheme } from '../contexts/ThemeContext';
+import FilterDropdown from '../components/UI/FilterDropdown';
 
 const API_BASE = "https://arpit-s-dashboard-backend.onrender.com/api"; // ✅ Use deployed backend
 
@@ -151,21 +152,11 @@ const Messages = () => {
               />
             </div>
             {/* Filter */}
-            <div className="relative">
-              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-              <select
-                value={filterStatus}
-                onChange={(e) => setFilterStatus(e.target.value)}
-                className={`pl-10 pr-8 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none transition-colors duration-200 border ${
-                  isDark ? 'bg-gray-700 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'
-                }`}
-              >
-                <option value="all">All Messages</option>
-                <option value="unread">Unread</option>
-                <option value="starred">Starred</option>
-                <option value="high">High Priority</option>
-              </select>
-            </div>
+<FilterDropdown
+  filterStatus={filterStatus}
+  setFilterStatus={setFilterStatus}
+  isDark={isDark}
+/>
           </div>
         </div>
       </div>

@@ -152,11 +152,11 @@ const Messages = () => {
               />
             </div>
             {/* Filter */}
-<FilterDropdown
-  filterStatus={filterStatus}
-  setFilterStatus={setFilterStatus}
-  isDark={isDark}
-/>
+            <FilterDropdown
+              filterStatus={filterStatus}
+              setFilterStatus={setFilterStatus}
+              isDark={isDark}
+            />
           </div>
         </div>
       </div>
